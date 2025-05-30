@@ -1,12 +1,12 @@
 package main
 
 import (
+	"log"
+
 	"multi-chain-payment-gateway/internal/api"
 	"multi-chain-payment-gateway/internal/config"
 	"multi-chain-payment-gateway/internal/database"
 	"multi-chain-payment-gateway/internal/services"
-	"log"
-	"os"
 
 	"github.com/joho/godotenv"
 )
@@ -39,10 +39,7 @@ func main() {
 	router := api.NewRouter(paymentService, webhookService, cfg)
 
 	// Start server
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+	port := cfg.Port
 
 	log.Printf("Server starting on port %s", port)
 	if err := router.Run(":" + port); err != nil {
