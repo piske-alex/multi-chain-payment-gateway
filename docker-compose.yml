@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  payment-gateway:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - ENVIRONMENT=production
+      - DATABASE_URL=sqlite:///data/payments.db
+      - ETHEREUM_RPC_URL=${ETHEREUM_RPC_URL}
+      - SOLANA_RPC_URL=${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com}
+      - TON_RPC_URL=${TON_RPC_URL:-https://toncenter.com/api/v2/jsonRPC}
+      - PRICE_API_KEY=${PRICE_API_KEY}
+      - WEBHOOK_SECRET=${WEBHOOK_SECRET:-default-secret}
+      - WIDGET_BASE_URL=${WIDGET_BASE_URL:-http://localhost:8080}
+    volumes:
+      - payment_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  payment_data:

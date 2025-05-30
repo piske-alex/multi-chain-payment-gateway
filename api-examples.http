@@ -1,0 +1,41 @@
+### Create a new payment
+POST http://localhost:8080/api/payments
+Content-Type: application/json
+
+{
+  "amount": 25.50,
+  "currency": "USD",
+  "webhook_url": "https://your-site.com/webhooks/payment",
+  "success_url": "https://your-site.com/payment-success",
+  "metadata": {
+    "order_id": "12345",
+    "customer_id": "user_789",
+    "product": "Premium Subscription"
+  }
+}
+
+### Get payment details
+GET http://localhost:8080/api/payments/{{payment_id}}
+
+### Get payment status
+GET http://localhost:8080/api/payments/{{payment_id}}/status
+
+### Access payment widget (redirect)
+GET http://localhost:8080/widget/{{payment_id}}
+
+### Health check
+GET http://localhost:8080/health
+
+### Example: Create test payment
+POST http://localhost:8080/api/payments
+Content-Type: application/json
+
+{
+  "amount": 10.00,
+  "currency": "USD",
+  "webhook_url": "https://webhook.site/unique-id",
+  "success_url": "https://example.com/success",
+  "metadata": {
+    "test": true
+  }
+}
