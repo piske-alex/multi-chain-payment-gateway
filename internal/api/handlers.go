@@ -1,7 +1,6 @@
 package api
 
 import (
-	"multi-chain-payment-gateway/internal/models"
 	"multi-chain-payment-gateway/internal/services"
 	"net/http"
 
@@ -65,10 +64,10 @@ func (h *PaymentHandler) GetPaymentStatus(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"id":     payment.ID,
-		"status": payment.Status,
-		"amount": payment.Amount,
-		"currency": payment.Currency,
+		"id":         payment.ID,
+		"status":     payment.Status,
+		"amount":     payment.Amount,
+		"currency":   payment.Currency,
 		"expires_at": payment.ExpiresAt,
 	})
 }

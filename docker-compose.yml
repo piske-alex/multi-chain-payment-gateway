@@ -9,7 +9,7 @@ services:
       - PORT=8080
       - ENVIRONMENT=production
       - DATABASE_URL=sqlite:///data/payments.db
-      - ETHEREUM_RPC_URL=${ETHEREUM_RPC_URL}
+      - ETHEREUM_RPC_URL=${ETHEREUM_RPC_URL:-https://eth-mainnet.g.alchemy.com/v2/d4adTe-ecsRwmQFOaljKOg7ZUqVQWNzo}
       - SOLANA_RPC_URL=${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com}
       - TON_RPC_URL=${TON_RPC_URL:-https://toncenter.com/api/v2/jsonRPC}
       - PRICE_API_KEY=${PRICE_API_KEY}

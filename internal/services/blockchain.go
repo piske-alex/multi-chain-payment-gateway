@@ -2,21 +2,22 @@ package services
 
 import (
 	"context"
-	"multi-chain-payment-gateway/internal/config"
-	"multi-chain-payment-gateway/internal/models"
 	"crypto/rand"
 	"fmt"
+	"multi-chain-payment-gateway/internal/config"
+	"multi-chain-payment-gateway/internal/models"
 	"time"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/shopspring/decimal"
 )
 
 type BlockchainService struct {
-	config      *config.Config
-	ethClient   *ethclient.Client
-	wallets     map[string]*WalletInfo
+	config    *config.Config
+	ethClient *ethclient.Client
+	wallets   map[string]*WalletInfo
 }
 
 type WalletInfo struct {
@@ -130,8 +131,8 @@ func (s *BlockchainService) checkEthereumTransaction(address string, expectedAmo
 	if s.ethClient != nil {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
-		
-		_, err := s.ethClient.BalanceAt(ctx, crypto.HexToAddress(address), nil)
+
+		_, err := s.ethClient.BalanceAt(ctx, common.HexToAddress(address), nil)
 		if err != nil {
 			return nil, err
 		}
