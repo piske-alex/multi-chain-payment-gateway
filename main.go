@@ -27,7 +27,7 @@ func main() {
 	}
 
 	// Initialize services
-	priceService := services.NewPriceService(cfg.PriceAPIKey)
+	priceService := services.NewPriceService(cfg.BinanceAPIKey) // Updated to use Binance
 	blockchainService := services.NewBlockchainService(cfg)
 	paymentService := services.NewPaymentService(db, priceService, blockchainService, cfg)
 	webhookService := services.NewWebhookService(cfg.WebhookSecret)
@@ -45,6 +45,13 @@ func main() {
 	}
 
 	log.Printf("Server starting on port %s", port)
+	log.Printf("Using Binance API for crypto price data")
+	if cfg.BinanceAPIKey != "" {
+		log.Printf("Binance API key configured for higher rate limits")
+	} else {
+		log.Printf("Using Binance public API (no API key required)")
+	}
+	
 	if err := router.Run(":" + port); err != nil {
 		log.Fatal("Failed to start server:", err)
 	}
