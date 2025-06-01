@@ -39,3 +39,30 @@ Content-Type: application/json
     "test": true
   }
 }
+
+### Test Binance API directly (for debugging)
+GET https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT
+
+### Test Binance API - All prices
+GET https://api.binance.com/api/v3/ticker/price
+
+### Test Binance API - Multiple symbols
+GET https://api.binance.com/api/v3/ticker/price?symbols=["ETHUSDT","SOLUSDT","TONUSDT"]
+
+### Example: Real crypto amounts based on current prices
+# First get current ETH price
+GET https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT
+
+# Then create payment to see conversion
+POST http://localhost:8080/api/payments
+Content-Type: application/json
+
+{
+  "amount": 100.00,
+  "currency": "USD",
+  "webhook_url": "https://webhook.site/test",
+  "success_url": "https://example.com/success",
+  "metadata": {
+    "note": "Testing $100 payment with current Binance prices"
+  }
+}

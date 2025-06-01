@@ -12,9 +12,11 @@ services:
       - ETHEREUM_RPC_URL=${ETHEREUM_RPC_URL}
       - SOLANA_RPC_URL=${SOLANA_RPC_URL:-https://api.mainnet-beta.solana.com}
       - TON_RPC_URL=${TON_RPC_URL:-https://toncenter.com/api/v2/jsonRPC}
-      - PRICE_API_KEY=${PRICE_API_KEY}
+      - BINANCE_API_KEY=${BINANCE_API_KEY:-}
       - WEBHOOK_SECRET=${WEBHOOK_SECRET:-default-secret}
       - WIDGET_BASE_URL=${WIDGET_BASE_URL:-http://localhost:8080}
+      - BINANCE_RATE_LIMIT=${BINANCE_RATE_LIMIT:-1200}
+      - BINANCE_RATE_LIMIT_WINDOW=${BINANCE_RATE_LIMIT_WINDOW:-60}
     volumes:
       - payment_data:/data
     restart: unless-stopped
